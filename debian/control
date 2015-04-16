@@ -1,0 +1,12 @@
+Source: sugar-image-viewer-activity
+Section: x11
+Priority: optional
+Maintainer: James Cameron <quozl@laptop.org>
+Build-Depends: cdbs, debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: sugar-image-viewer-activity
+Architecture: all
+Depends: sugar
+Description: Image-Viewer activity for Sugar desktop
+ Image-Viewer activity is for viewing images on screen.
