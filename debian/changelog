@@ -1,3 +1,9 @@
+sugar-image-viewer-activity (62-0~quozl1) trusty; urgency=medium
+
+  * new upstream version
+
+ -- James Cameron <quozl@laptop.org>  Thu, 21 May 2015 10:52:16 +1000
+
 sugar-image-viewer-activity (61-0quozl1) trusty; urgency=medium
 
   * Initial package
