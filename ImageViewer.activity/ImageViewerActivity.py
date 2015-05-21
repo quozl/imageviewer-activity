@@ -26,13 +26,17 @@ from gettext import gettext as _
 
 import time
 import os
-import math
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
 
 from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.objectchooser import ObjectChooser
+try:
+    from sugar3.graphics.objectchooser import FILTER_TYPE_GENERIC_MIME
+except:
+    FILTER_TYPE_GENERIC_MIME = 'generic_mime'
+
 from sugar3 import mime
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -178,7 +182,7 @@ class ImageViewerActivity(activity.Activity):
         self.set_toolbar_box(toolbar_box)
         toolbar_box.show()
 
-        if self._object_id is None:
+        if self._object_id is None or not self._jobject.file_path:
             empty_widgets = Gtk.EventBox()
             empty_widgets.modify_bg(Gtk.StateType.NORMAL,
                                     style.COLOR_WHITE.get_gdk_color())
@@ -458,8 +462,13 @@ class ImageViewerActivity(activity.Activity):
         if not self._want_document:
             return
 
-        chooser = ObjectChooser(parent=self,
-                                what_filter=mime.GENERIC_TYPE_IMAGE)
+        try:
+            chooser = ObjectChooser(self, what_filter='Image',
+                                    filter_type=FILTER_TYPE_GENERIC_MIME,
+                                    show_preview=True)
+        except:
+            # for compatibility with older versions
+            chooser = ObjectChooser(self._activity, what_filter='Image')
 
         try:
             result = chooser.run()
